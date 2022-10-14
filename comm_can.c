@@ -25,7 +25,6 @@
 #include "buffer.h"
 #include "utils.h"
 #include "timeout.h"
-#include "sleep.h"
 #include "resistor.h"
 #include "pwr.h"
 
@@ -564,8 +563,6 @@ static void decode_msg(uint32_t eid, uint8_t *data8, int len, bool is_replaced) 
 					}
 				}
 
-				sleep_reset();
-
 				switch (commands_send) {
 				case 0:
 					commands_process_packet(rx_buffer, rxbuf_len, send_packet_wrapper);
@@ -652,12 +649,9 @@ static void decode_msg(uint32_t eid, uint8_t *data8, int len, bool is_replaced) 
 
 	switch (cmd) {
 	case CAN_PACKET_PING:
-		sleep_reset();
 		break;
 
 	case CAN_PACKET_STATUS:
-		sleep_reset();
-
 		for (int i = 0;i < CAN_STATUS_MSGS_TO_STORE;i++) {
 			can_status_msg *stat_tmp = &stat_msgs[i];
 			if (stat_tmp->id == id || stat_tmp->id == -1) {
@@ -744,11 +738,6 @@ static void decode_msg(uint32_t eid, uint8_t *data8, int len, bool is_replaced) 
 		msg.is_charging = (stat >> 0) & 1;
 		msg.is_balancing = (stat >> 1) & 1;
 		msg.is_charge_allowed = (stat >> 2) & 1;
-
-		// Do not go to sleep when some other pack is charging or balancing.
-		if (msg.is_charging || msg.is_balancing) {
-			sleep_reset();
-		}
 
 		// Find BMS with lowest cell voltage
 		if (bms_stat_v_cell_min.id < 0 ||

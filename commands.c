@@ -28,7 +28,6 @@
 #include "confxml.h"
 #include "flash_helper.h"
 #include "timeout.h"
-#include "sleep.h"
 #include "utils.h"
 
 #include <math.h>
@@ -81,8 +80,6 @@ void commands_process_packet(unsigned char *data, unsigned int len,
 	COMM_PACKET_ID packet_id = data[0];
 	data++;
 	len--;
-
-	sleep_reset();
 
 	switch (packet_id) {
 	case COMM_FW_VERSION: {

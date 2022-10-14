@@ -24,6 +24,8 @@
 #include "usbcfg.h"
 #include "commands.h"
 
+#if HAL_USE_USB
+
 // Private variables
 #define SERIAL_RX_BUFFER_SIZE		2048
 static uint8_t serial_rx_buffer[SERIAL_RX_BUFFER_SIZE];
@@ -150,3 +152,5 @@ void comm_usb_send_packet(unsigned char *data, unsigned int len) {
 unsigned int comm_usb_get_write_timeout_cnt(void) {
 	return write_timeout_cnt;
 }
+
+#endif

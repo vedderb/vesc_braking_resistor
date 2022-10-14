@@ -117,6 +117,29 @@ int utils_truncate_number_int(int *number, int min, int max) {
 	return did_trunc;
 }
 
+/**
+ * Calculate the values with the lowest magnitude.
+ *
+ * @param va
+ * The first value.
+ *
+ * @param vb
+ * The second value.
+ *
+ * @return
+ * The value with the lowest magnitude.
+ */
+float utils_min_abs(float va, float vb) {
+	float res;
+	if (fabsf(va) < fabsf(vb)) {
+		res = va;
+	} else {
+		res = vb;
+	}
+
+	return res;
+}
+
 // A mapping of a samsung 30q cell for % remaining capacity vs. voltage from
 // 4.2 to 3.2, note that the you lose 15% of the 3Ah rated capacity in this range
 float utils_batt_liion_norm_v_to_capacity(float norm_v) {

@@ -93,7 +93,7 @@ static THD_FUNCTION(adc_thd, p) {
 				temps[j] += samples[ADC_CHANNELS * i + 3 + j];
 			}
 
-			v_in += samples[ADC_CHANNELS * i + HW_ADC_TEMP_SENSORS + 3];
+			v_in += samples[ADC_CHANNELS * i + HW_ADC_TEMP_SENSORS + 4];
 		}
 
 		ref /= (float)num_samp;
@@ -144,11 +144,6 @@ void pwr_init(void) {
 
 	CURR_MEASURE_ON();
 	HW_CAN_ON();
-
-#ifdef LINE_BQ_CHG_EN
-	BQ_CP_ON();
-	BQ_PMON_ON();
-#endif
 
 	chThdSleepMilliseconds(10);
 

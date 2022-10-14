@@ -1,5 +1,5 @@
 /*
-	Copyright 2019 - 2021 Benjamin Vedder	benjamin@vedder.se
+	Copyright 2019 - 2022 Benjamin Vedder	benjamin@vedder.se
 
 	This file is part of the VESC BMS firmware.
 
@@ -26,7 +26,6 @@
 #include "confparser.h"
 #include "commands.h"
 #include "timeout.h"
-#include "sleep.h"
 #include "flash_helper.h"
 #include "comm_uart.h"
 #include "hw.h"
@@ -114,7 +113,10 @@ int main(void) {
 	// USB needs some time to detect if a cable is connected, so start it before powering the regulators
 	// to not waste too much power.
 	commands_init();
+
+#if HAL_USE_USB
 	comm_usb_init();
+#endif
 
 	// Only wait for USB every 3 boots
 	if (backup.usb_cnt >= 3) {
@@ -128,23 +130,12 @@ int main(void) {
 	comm_can_init();
 	comm_can_set_baud(backup.config.can_baud_rate);
 
-#ifdef HDC1080_SDA_GPIO
-	hdc1080_init(HDC1080_SDA_GPIO, HDC1080_SDA_PIN,
-			HDC1080_SCL_GPIO, HDC1080_SCL_PIN);
-#endif
-
-#ifdef SHT30_SDA_GPIO
-	sht30_init(SHT30_SDA_GPIO, SHT30_SDA_PIN,
-			SHT30_SCL_GPIO, SHT30_SCL_PIN);
-#endif
-
 #ifdef HW_UART_DEV
 	comm_uart_init();
 #endif
 
 	resistor_init();
 
-//	sleep_init();
 //	timeout_init();
 
 	for(;;) {

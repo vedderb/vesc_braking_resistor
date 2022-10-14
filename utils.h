@@ -33,6 +33,7 @@ float utils_map(float x, float in_min, float in_max, float out_min, float out_ma
 int utils_map_int(int x, int in_min, int in_max, int out_min, int out_max);
 int utils_truncate_number(float *number, float min, float max);
 int utils_truncate_number_int(int *number, int min, int max);
+float utils_min_abs(float va, float vb);
 float utils_batt_liion_norm_v_to_capacity(float norm_v);
 
 /**

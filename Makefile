@@ -134,7 +134,6 @@ CSRC = $(ALLCSRC) \
        flash_helper.c \
        conf_general.c \
        timeout.c \
-       sleep.c \
        comm_uart.c \
        resistor.c
 

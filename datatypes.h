@@ -26,13 +26,6 @@
 #include <stdbool.h>
 
 typedef enum {
-	BALANCE_MODE_DISABLED = 0,
-	BALANCE_MODE_CHARGING_ONLY,
-	BALANCE_MODE_DURING_AND_AFTER_CHARGING,
-	BALANCE_MODE_ALWAYS
-} BMS_BALANCE_MODE;
-
-typedef enum {
 	HW_TYPE_VESC = 0,
 	HW_TYPE_VESC_BMS,
 	HW_TYPE_CUSTOM_MODULE
@@ -63,88 +56,22 @@ typedef struct {
 
 	CAN_BAUD can_baud_rate;
 
-	BMS_BALANCE_MODE balance_mode;
+	// Temperature at which power limiting begins
+	float temp_lim_start;
+	// Temperature at which power is completely disabled
+	float temp_lim_end;
 
-	// Number of cells in series
-	int cell_num;
+	// Voltage at which power limiting begins
+	float volt_lower_lim_start;
+	// Voltage at which power is completely disabled
+	float volt_lower_lim_end;
 
-	// Channel of the first cell
-	int cell_first_index;
-
-	// Maximum simultaneous balancing channels
-	int max_bal_ch;
-
-	// Distributed balancing
-	bool dist_bal;
-
-	// Start balancing if cell voltage is this much above the minimum cell voltage
-	float vc_balance_start;
-
-	// Stop balancing when cell voltage is this much above the minimum cell voltage
-	float vc_balance_end;
-
-	// Start charging when max cell voltage is below this voltage
-	float vc_charge_start;
-
-	// End charging when max cell voltage is above this voltage
-	float vc_charge_end;
-
-	// Only allow charging if all cells are above this voltage
-	float vc_charge_min;
-
-	// Only allow balancing if all cells are above this voltage
-	float vc_balance_min;
-
-	// Only allow balancing when the current magnitude is below this value
-	float balance_max_current;
-
-	// Current must be above this magnitude for the Ah and Wh couters to run
-	float min_current_ah_wh_cnt;
-
-	// Enter sleep mode when the current magnitude is below this value
-	float min_current_sleep;
-
-	// Charge port voltage at which a charger is considered plugged in
-	float v_charge_detect;
-
-	// Only allow charging when the cell temperature is below this value
-	float t_charge_max;
-
-	// Current measurement mode
-	I_MEASURE_MODE i_measure_mode;
-
-	// Shunt resistance on external PCB
-	float ext_shunt_res;
-
-	// Shunt amplifier gain on external PCB
-	float ext_shunt_gain;
-
-	// Precharge output voltage divider top resistor
-	float ext_pch_r_top; // TODO
-
-	// Precharge output voltage divider bottom resistor
-	float ext_pch_r_bot; // TODO
-
-	// Reset sleep timeout to this value at events that prevent sleeping
-	int sleep_timeout_reset_ms;
-
-	// Maximum allowed charging current
-	float max_charge_current;
-
-	// Filter constant for SoC filter
-	float soc_filter_const;
-
-	// Start limiting the number of balancing channels at this temperature
-	float t_bal_lim_start;
-
-	// Disable all balancing channels above this temperature
-	float t_bal_lim_end;
-
-	// Only allow charging when the cell temperature is above this value
-	float t_charge_min;
-
-	// Enable temperature monitoring during charging
-	bool t_charge_mon_en;
+	// Voltage at which load starts getting applied
+	float load_volt_start;
+	// Voltage at which maximum load is applied
+	float load_volt_max;
+	// Load at maximum voltage
+	float load_volt_max_fraction;
 } main_config_t;
 
 // Backup data that is retained between boots and firmware updates. When adding new

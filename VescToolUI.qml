@@ -19,12 +19,11 @@ Item {
         id: gaugeColumn
         anchors.fill: parent
         RowLayout {
-            Layout.fillHeight: true
             CustomGauge {
                 id: vGauge
                 Layout.fillWidth: true
                 Layout.preferredWidth: gaugeColumn.width * 0.45
-                Layout.preferredHeight: gaugeColumn.height * 0.45
+                Layout.preferredHeight: gaugeColumn.width * 0.45
                 maximumValue: 120
                 minimumValue: 0
                 tickmarkScale: 1
@@ -32,14 +31,14 @@ Item {
                 labelStep: 10
                 value: 0
                 unitText: "V"
-                typeText: "V In\n(Not Working)"
+                typeText: "V In"
             }
             
             CustomGauge {
                 id: iGauge
                 Layout.fillWidth: true
                 Layout.preferredWidth: gaugeColumn.width * 0.45
-                Layout.preferredHeight: gaugeColumn.height * 0.45
+                Layout.preferredHeight: gaugeColumn.width * 0.45
                 maximumValue: 120
                 minimumValue: 0
                 tickmarkScale: 1
@@ -52,12 +51,11 @@ Item {
         }
         
         RowLayout {
-            Layout.fillHeight: true
             CustomGauge {
                 id: t1Gauge
                 Layout.fillWidth: true
                 Layout.preferredWidth: gaugeColumn.width * 0.45
-                Layout.preferredHeight: gaugeColumn.height * 0.45
+                Layout.preferredHeight: gaugeColumn.width * 0.45
                 maximumValue: 120
                 minimumValue: -20
                 tickmarkScale: 1
@@ -72,7 +70,7 @@ Item {
                 id: t2Gauge
                 Layout.fillWidth: true
                 Layout.preferredWidth: gaugeColumn.width * 0.45
-                Layout.preferredHeight: gaugeColumn.height * 0.45
+                Layout.preferredHeight: gaugeColumn.width * 0.45
                 maximumValue: 120
                 minimumValue: -20
                 tickmarkScale: 1
@@ -85,6 +83,7 @@ Item {
         }
         
         Text {
+            Layout.topMargin: 20
             Layout.fillWidth: true
             color: "White"
             horizontalAlignment: Text.AlignHCenter
@@ -103,6 +102,10 @@ Item {
             onValueChanged: {
                 mCommands.ioBoardSetPwm(255, 0, pwrSlider.value / 1000)
             }
+        }
+        
+        Item {
+            Layout.fillHeight: true
         }
     }
     

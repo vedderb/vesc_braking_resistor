@@ -27,14 +27,14 @@
 #define CONF_GENERAL_H_
 
 // Firmware version
-#define FW_VERSION_MAJOR			5
-#define FW_VERSION_MINOR			03
+#define FW_VERSION_MAJOR			6
+#define FW_VERSION_MINOR			00
 // Set to 0 for building a release and iterate during beta test builds
-#define FW_TEST_VERSION_NUMBER		17
+#define FW_TEST_VERSION_NUMBER		1
 
 // Init codes for the persistent storage. Change the config code when updating the config struct
 // in a way that is not backwards compatible.
-#define VAR_INIT_CODE				59763258
+#define VAR_INIT_CODE				59763221
 
 #define HW_NAME_MAX_CHARS			16
 

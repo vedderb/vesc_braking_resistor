@@ -17,12 +17,14 @@
 #ifndef USBCFG_H
 #define USBCFG_H
 
+#if HAL_USE_USB
 extern const USBConfig usbcfg;
 extern SerialUSBConfig serusbcfg;
 extern SerialUSBDriver SDU1;
 
 void usb_cdc_init(void);
 int usb_cdc_configured_cnt(void);
+#endif
 
 #endif  /* USBCFG_H */
 

@@ -26,7 +26,6 @@
 #include "hal.h"
 #include "commands.h"
 #include "packet.h"
-#include "sleep.h"
 
 // Threads
 static THD_FUNCTION(packet_process_thread, arg);

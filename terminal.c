@@ -27,8 +27,9 @@
 #include "comm_usb.h"
 #include "mempools.h"
 #include "main.h"
-#include "sleep.h"
 #include "flash_helper.h"
+#include "pwr.h"
+#include "resistor.h"
 
 #include <string.h>
 #include <stdio.h>
@@ -168,6 +169,12 @@ void terminal_process_string(char *str) {
 
 		commands_printf("Configuration flash write counter: %d", backup.conf_flash_write_cnt);
 
+		commands_printf("V In     :%.2f", pwr_get_vin());
+		commands_printf("I In     :%.2f", resistor_get_current_filtered());
+		commands_printf("T Center :%.2f", pwr_get_temp(0));
+		commands_printf("T MOS    :%.2f", pwr_get_temp(1));
+		commands_printf("T PCB    :%.2f", pwr_get_temp(2));
+
 		commands_printf(" ");
 	} else if (strcmp(argv[0], "can_scan") == 0) {
 		bool found = false;
@@ -186,7 +193,6 @@ void terminal_process_string(char *str) {
 		}
 	} else if (strcmp(argv[0], "uptime") == 0) {
 		commands_printf("Uptime: %.2f s", (double)chVTGetSystemTimeX() / (double)CH_CFG_ST_FREQUENCY);
-		commands_printf("Sleep in: %.2f s", (double)((float)sleep_time_left() / 1000.0));
 	}
 
 	// The help command
