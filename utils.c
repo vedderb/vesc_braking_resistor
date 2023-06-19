@@ -18,6 +18,7 @@
     */
 
 #include "utils.h"
+#include <math.h>
 
 /**
  * Get the middle value of three values

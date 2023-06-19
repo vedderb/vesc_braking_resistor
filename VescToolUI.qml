@@ -123,7 +123,7 @@ Item {
     Connections {
         target: mCommands
         
-        onIoBoardValRx: {
+        function onIoBoardValRx(val) {
             vGauge.value = val.adc_1_4[0]
             iGauge.value = val.adc_1_4[1]
             t1Gauge.value = val.adc_1_4[2]

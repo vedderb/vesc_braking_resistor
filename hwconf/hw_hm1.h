@@ -29,8 +29,8 @@
 #define CURR_MEASURE_OFF()
 
 // Settings
-#define HW_SHUNT_RES			(0.5e-3)
-#define HW_SHUNT_AMP_GAIN		(20.0)
+#define HW_SHUNT_RES			(0.3e-3)
+#define HW_SHUNT_AMP_GAIN		(50.0)
 #define V_REG					3.3
 #define R_IN_TOP				(68e3)
 #define R_IN_BOTTOM				(2.2e3)
